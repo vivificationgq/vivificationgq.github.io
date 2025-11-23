@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qi Gao | Researcher in HRI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            colors: {
+              // Custom Palette
+              parrot: '#D794AF',
+              lavender: '#E0BAC9',
+              queen: '#E0D0DC',
+              tropical: '#C5A7E0',
+              royal: '#875DAF',
+              rebecca: '#633C94',
+              
+              // Semantic aliases
+              primary: '#875DAF', // Royal Purple
+              secondary: '#D794AF', // Parrot Pink
+              dark: '#633C94', // Rebecca Purple
+              light: '#E0D0DC', // Queen Pink
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'float-delayed': 'float 7s ease-in-out 2s infinite',
+              'spin-slower': 'spin 15s linear infinite',
+              'spin-reverse': 'spinReverse 20s linear infinite',
+              'flow': 'flow 8s ease-in-out infinite',
+              'draw': 'draw 4s ease-in-out infinite alternate',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              spinReverse: {
+                'from': { transform: 'rotate(360deg)' },
+                'to': { transform: 'rotate(0deg)' },
+              },
+              flow: {
+                '0%, 100%': { transform: 'scale(1) skew(0deg)' },
+                '50%': { transform: 'scale(1.05) skew(2deg)' },
+              },
+              draw: {
+                '0%': { strokeDashoffset: '1000' },
+                '100%': { strokeDashoffset: '0' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Custom scrollbar for cleaner look */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #C5A7E0; /* Tropical Violet */
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #875DAF; /* Royal Purple */
+      }
+      
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Custom selection color */
+      ::selection {
+        background-color: #E0BAC9; /* Pink Lavender */
+        color: #633C94; /* Rebecca Purple */
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.0",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-white text-slate-900 antialiased">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      // Simple Intersection Observer for reveal effects
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        // Observe existing elements
+        const observeElements = () => {
+          document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        };
+        
+        // Watch for DOM changes (React renders)
+        const mutationObserver = new MutationObserver(observeElements);
+        mutationObserver.observe(document.body, { childList: true, subtree: true });
+        
+        observeElements();
+      });
+    </script>
+  </body>
+</html>
